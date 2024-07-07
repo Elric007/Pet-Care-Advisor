@@ -57,16 +57,7 @@ with col1:
 with col2:
     if st.button("Find Location"):
         if location:
-            location_prompt = f"Based on the location '{location}', provide recommendations for the nearest veterinary clinics and pet stores."
-            location_info = client.chat.completions.create(
-                model="gpt-4",
-                messages=[{
-                    "role": "system",
-                    "content": location_prompt
-                }],
-                max_tokens=1000
-            ).choices[0].message.content
-            st.session_state.location_info = location_info
+            st.session_state.location_advice = get_advice(query, sysprompt, location)
         else:
             st.write("Please enter a location to get recommendations.")
 
