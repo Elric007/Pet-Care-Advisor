@@ -26,7 +26,7 @@ def get_advice(query, sysprompt, location=None):
 
 
 sysprompt = """
-You are a knowledgeable pet advisor. Your role is to provide expert advice on pet care, health, and behavior. Additionally, you recommend the nearest veterinary clinics and pet stores based on the user's input location to ensure pet owners have access to the best resources for their pets.
+You are a knowledgeable pet advisor. Your role is to provide expert advice on pet care, health, and behavior.
 
 """
 
@@ -55,7 +55,16 @@ with col1:
 with col2:
     if st.button("Find Location"):
         if location:
-            st.session_state.location_advice = get_advice(query, sysprompt, location)
+            location_prompt = f"Based on the location '{location}', provide recommendations for the nearest veterinary clinics and pet stores."
+            location_info = client.chat.completions.create(
+                model="gpt-4",
+                messages=[{
+                    "role": "system",
+                    "content": location_prompt
+                }],
+                max_tokens=1000
+            ).choices[0].message.content
+            st.session_state.location_info = location_info
         else:
             st.write("Please enter a location to get recommendations.")
 
