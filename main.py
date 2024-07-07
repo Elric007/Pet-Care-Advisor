@@ -35,7 +35,7 @@ st.title("Pet Care Advisor")
 st.write("Welcome to the Pet Care Advisor! Ask me anything about pet care.")
 
 query = st.text_input("Enter your pet care question:")
-location = st.text_input("Enter your location (latitude,longitude):")
+location = st.text_input("Enter your location:")
 
 
 if st.button("Get Advice"):
