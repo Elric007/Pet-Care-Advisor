@@ -37,6 +37,11 @@ st.write("Welcome to the Pet Care Advisor! Ask me anything about pet care.")
 query = st.text_input("Enter your pet care question:")
 location = st.text_input("Enter your location:")
 
+# Initialize session state
+if "advice" not in st.session_state:
+    st.session_state.advice = ""
+if "location_advice" not in st.session_state:
+    st.session_state.location_advice = ""
 
 col1, col2 = st.columns([1, 1])
 with col1:
