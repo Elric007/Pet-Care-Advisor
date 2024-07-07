@@ -38,12 +38,28 @@ query = st.text_input("Enter your pet care question:")
 location = st.text_input("Enter your location:")
 
 
-if st.button("Get Advice"):
-    if query:
-        advice = get_advice(query, sysprompt, location)
-        st.write("**Advice:**")
-        st.write(advice)
-    else:
-        st.write("Please enter a question to get advice.")
+col1, col2 = st.columns([1, 1])
+with col1:
+    if st.button("Get Advice"):
+        if query:
+            st.session_state.advice = get_advice(query, sysprompt)
+            st.session_state.location_advice = ""  # Reset location advice when new advice is generated
+        else:
+            st.write("Please enter a question to get advice.")
+
+with col2:
+    if st.button("Find Location"):
+        if location:
+            st.session_state.location_advice = get_advice(query, sysprompt, location)
+        else:
+            st.write("Please enter a location to get recommendations.")
+
+if st.session_state.advice:
+    st.write("**Advice:**")
+    st.write(st.session_state.advice)
+
+if st.session_state.location_advice:
+    st.write("**Location-based Advice:**")
+    st.write(st.session_state.location_advice)
 
 
